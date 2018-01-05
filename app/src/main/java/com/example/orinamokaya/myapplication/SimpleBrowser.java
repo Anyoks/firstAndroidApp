@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -23,10 +24,12 @@ public class SimpleBrowser extends Activity implements View.OnClickListener {
 
         setContentView(R.layout.simplebrowser);
 
-        //setting up  the vars
+
         ourBrowser= (WebView) findViewById(R.id.wvBrowser);
+        ourBrowser.setWebViewClient(new WebViewClient()); // if you don't set this, the url will be opened in a browser
         ourBrowser.loadUrl("http://www.miraclemanner.org"); //default page
 
+        //setting up  the vars
         // setting up references to view
         Button go = (Button) findViewById(R.id.bGo);
         Button back = (Button) findViewById(R.id.bBack);

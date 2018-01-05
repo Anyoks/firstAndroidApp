@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!--black pic is the default button view
+    Red is when the button is pressed
+    maroon is when the button is highlighted
+    The order of arrangement is key  -->
+
+
+    <item android:state_pressed="true" android:drawable="@drawable/pluspressed"></item>
+    <item android:state_focused="true" android:drawable="@drawable/plushighlighted"></item>
+    <item android:drawable="@drawable/plus"></item>
+
+
+</selector>

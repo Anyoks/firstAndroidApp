@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:text= "My first andorid application, I know, and am sure that by the time i finish
+these android tutorials I shall have added Android app dev under my sleeve. I shall be, without
+a doubt, be a FULL STACK developer.">
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="My first andorid application, I know, and am sure that by the time i finish
+these android tutorials I shall have added Android app dev under my sleeve. I shall be, without
+a doubt, be a FULL STACK developer."
+        android:textColor="@color/colorPrimary"
+        android:layout_marginTop="@dimen/fab_margin"
+        android:layout_marginBottom="@dimen/fab_margin"
+        android:layout_marginRight="@dimen/fab_margin"
+        android:layout_marginLeft="@dimen/fab_margin"
+       />
+</LinearLayout>

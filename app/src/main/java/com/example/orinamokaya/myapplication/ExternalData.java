@@ -3,6 +3,7 @@ package com.example.orinamokaya.myapplication;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
@@ -94,32 +95,47 @@ public class ExternalData extends Activity implements View.OnClickListener{
 
                 break;
             case R.id.bLoadData:
-                // FileInputStream is used to load data or read data
-                String collectedData = null;
-                FileInputStream fis = null;
-                try {
-                    fis = openFileInput(FILENAME); //open the file via input stream
-                    byte[] dataArray = new byte[fis.available()]; //get the length of the file
-                    //loop through the file byte by byte and save each byte as a string in coollectedData
-                    while (fis.read(dataArray) != -1){
-                        collectedData = new String(dataArray);
-                    }
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }finally {
-                    try {
-                        fis.close();// close the file
-                        dataResults.setText(collectedData); // update the text view
-
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
+                // this enables us to do this in the background to avoid hanging if the file is large
+                new loadSomeStuff().execute(FILENAME);
+//                dataResults.setText(collected);
 
                 break;
         }
 
+    }
+    // taking file loading  into the background..
+    // string - parameters being passed in to the method
+    // Integers - progrss bar
+    //String - data returned returned
+    public class loadSomeStuff extends AsyncTask<String, Integer, String> {
+
+        @Override
+        protected String doInBackground(String... strings) {
+
+            // FileInputStream is used to load data or read data
+            String collectedData = null;
+            FileInputStream fis = null;
+            try {
+                fis = openFileInput(FILENAME); //open the file via input stream
+                byte[] dataArray = new byte[fis.available()]; //get the length of the file
+                //loop through the file byte by byte and save each byte as a string in coollectedData
+                while (fis.read(dataArray) != -1){
+                    collectedData = new String(dataArray);
+                }
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }finally {
+                try {
+                    fis.close();// close the file
+                    return collectedData; // return the data
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            return null;
+        }
     }
 }

@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -67,6 +68,29 @@ public class ExternalData extends Activity implements View.OnClickListener{
         switch (view.getId()){
 
             case R.id.bSaveData:
+                String data = sharedData.getText().toString(); //get user data
+
+                /* this is one method to write data into a file int the internal storage via FILE
+                File f = new File(FILENAME); // create a file with name FILENAME
+                try {
+                    fos = new FileOutputStream(f); //create a file output stream for the file
+                    // write data
+                    fos.close(); // close the file
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }*/
+                try {
+                    fos = openFileOutput(FILENAME, Context.MODE_PRIVATE);
+                    fos.write(data.getBytes());// write data in bytes
+                    fos.close();
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
 
                 break;
             case R.id.bLoadData:

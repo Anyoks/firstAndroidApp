@@ -19,7 +19,7 @@ import android.widget.ListView;
 public class Menu extends ListActivity { // the ListActivity class has list manipulation methods that we need as well as Activity methods
 
     String classes [] = {"MainActivity", "TextPlay", "Email", "Camera", "Data", "GFX", "GFXSurface", "SoundStuff", "Slider",
-            "Tabs","SimpleBrowser","Flipper"};
+            "Tabs","SimpleBrowser","Flipper", "SharedPrefs"};
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

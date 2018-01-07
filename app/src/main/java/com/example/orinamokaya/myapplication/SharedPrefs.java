@@ -55,6 +55,8 @@ public class SharedPrefs extends Activity implements View.OnClickListener {
                 /*Each time we hit save, the text will be grabbed from the edit text converted to a string
                 * then we'll access our shared preference someData and edit it to contain the string stringData
                  * we just grabbed, give it a key for reference then cpmmit the changes to the shared preference
+                 *
+                 * YOu can save as many strings and boolean, and int as possible and later load them using for use.
                 * */
 
                 //this is the variable we want to save
@@ -67,6 +69,13 @@ public class SharedPrefs extends Activity implements View.OnClickListener {
 
                 break;
             case R.id.bLoadData:
+                // update the shared preference variable, or load it here in order to get data from it
+                someData = getSharedPreferences(fileName,0); //load shared preference
+                /* now fetch the saved string data from the shared preference using the key used in saving it i.e "sharedString" tp a
+                string varible called dataFetch and a default value in case the file name or key cannot be found
+                */
+                String dataFetch = someData.getString("sharedString", "Couldn't load data, did you save any?");
+                dataResults.setText(dataFetch);// display the data on the text view
 
                 break;
         }

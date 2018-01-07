@@ -11,6 +11,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -91,9 +92,31 @@ public class ExternalData extends Activity implements View.OnClickListener{
                     e.printStackTrace();
                 }
 
-
                 break;
             case R.id.bLoadData:
+                // FileInputStream is used to load data or read data
+                String collectedData = null;
+                FileInputStream fis = null;
+                try {
+                    fis = openFileInput(FILENAME); //open the file via input stream
+                    byte[] dataArray = new byte[fis.available()]; //get the length of the file
+                    //loop through the file byte by byte and save each byte as a string in coollectedData
+                    while (fis.read(dataArray) != -1){
+                        collectedData = new String(dataArray);
+                    }
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }finally {
+                    try {
+                        fis.close();// close the file
+                        dataResults.setText(collectedData); // update the text view
+
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
 
                 break;
         }

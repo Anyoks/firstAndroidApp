@@ -4,9 +4,13 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.annotation.Nullable;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
+
+import java.io.File;
 
 /**
  * Created by orinamokaya on 1/8/18.
@@ -19,7 +23,7 @@ import android.widget.TextView;
  * operation
  */
 
-public class ExternalData extends Activity {
+public class ExternalData extends Activity implements AdapterView.OnItemSelectedListener {
 
     // these can only be accessed in this class
     private TextView canWrite, canRead;
@@ -27,6 +31,7 @@ public class ExternalData extends Activity {
     boolean canR, canW;
     Spinner spinner;
     String[] paths = {"Music", "Pictures", "Download"}; // where we will store data
+    File dirPath = null;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -68,7 +73,43 @@ public class ExternalData extends Activity {
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(ExternalData.this, android.R.layout.simple_spinner_item, paths);
         spinner = (Spinner) findViewById(R.id.spinner);
         spinner.setAdapter(adapter);
+        spinner.setOnItemSelectedListener(this);// when an item is selected do something
 
+
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+        int position = spinner.getSelectedItemPosition(); //get the position of the selected item
+
+        // this is simply to tell us where we want to save he item. what directory
+        //the position is either Music, Pictures, or Download. they must be in that order. as in the list we created
+        switch (position){
+            case 0:
+                //getExternalStoragePublicDirectory gets a location that can be accessed even without the app
+                //this path must co-respond with the first item in the string array paths
+
+                // returns Music file path
+                dirPath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MUSIC);
+                break;
+
+            case 1:
+                // returns pictures file path
+                dirPath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
+
+                break;
+            case 2:
+                // returns downloads path
+                dirPath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
+
+                break;
+        }
+
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> adapterView) {
 
     }
 }

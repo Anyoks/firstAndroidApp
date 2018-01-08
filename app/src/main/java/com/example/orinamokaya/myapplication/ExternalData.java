@@ -109,6 +109,18 @@ public class ExternalData extends Activity implements View.OnClickListener{
     //String - data returned returned
     public class loadSomeStuff extends AsyncTask<String, Integer, String> {
 
+        //there are four methods that are called in this Asynch task class.
+        // 1. onPreExecute 2. doInBackground 3. onProgressUpdate 4. onPostExecute
+        //they are called in that order.
+
+        //this method will be exectured first in this Asynch task
+        protected void onPreExecute(String f){
+            //set up variables
+            f ="set up the varibale here";
+            //do some stuff
+        }
+
+        //this method will be executed second
         @Override
         protected String doInBackground(String... strings) {
 
@@ -137,5 +149,18 @@ public class ExternalData extends Activity implements View.OnClickListener{
             }
             return null;
         }
+
+        //this is called third. Integer...ptogress is an integer array called progress
+        protected void onProgressUpdate(Integer...progress){
+
+        }
+
+        //this method will be executed last after everything is completed. here is where we retrieve results
+        protected void onPostExecute(String result){ // because we are returning a string called collected, we pass in a string var
+            //this is where we set up or text view
+            String s = " was Loaded from a file in the internal storage";
+            dataResults.setText(result + s);
+        }
+
     }
 }

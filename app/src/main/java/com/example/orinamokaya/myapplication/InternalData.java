@@ -3,17 +3,14 @@ package com.example.orinamokaya.myapplication;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -26,17 +23,17 @@ import java.io.IOException;
  * and a file in put stream to read data - load
  */
 
-public class ExternalData extends Activity implements View.OnClickListener{
+public class InternalData extends Activity implements View.OnClickListener{
 
     EditText sharedData;
     TextView dataResults;
     FileOutputStream fos; // to write data
-    String FILENAME = "internaStorage"; // name of the file we will create and save data into
+    String FILENAME = "internalStorage"; // name of the file we will create and save data into
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.externaldata);
+        setContentView(R.layout.internaldata);
         setupVars();
     }
 
@@ -122,8 +119,8 @@ public class ExternalData extends Activity implements View.OnClickListener{
         //this method will be exectured first in this Asynch task
         protected void onPreExecute(){
             //set up the progress bar
-//            progressBar = new ProgressBar(ExternalData.this,null, android.R.attr.progressBarStyleHorizontal); // takes the context of the main class and progress bar styele
-            progressBar1 = new ProgressDialog(ExternalData.this);
+//            progressBar = new ProgressBar(InternalData.this,null, android.R.attr.progressBarStyleHorizontal); // takes the context of the main class and progress bar styele
+            progressBar1 = new ProgressDialog(InternalData.this);
             progressBar1.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
             progressBar1.setMax(100); //we could take the size of the bytes here. byte this is just an simple example
 //            progressBar.setVisibility(View.VISIBLE); //show progress bar

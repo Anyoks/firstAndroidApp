@@ -139,7 +139,7 @@
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
         <activity
-            android:name=".ExternalData"
+            android:name=".InternalData"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>

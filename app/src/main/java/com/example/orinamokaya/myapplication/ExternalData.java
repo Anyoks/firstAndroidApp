@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -23,7 +24,7 @@ import java.io.File;
  * operation
  */
 
-public class ExternalData extends Activity implements AdapterView.OnItemSelectedListener {
+public class ExternalData extends Activity implements AdapterView.OnItemSelectedListener, View.OnClickListener {
 
     // these can only be accessed in this class
     private TextView canWrite, canRead;
@@ -33,6 +34,10 @@ public class ExternalData extends Activity implements AdapterView.OnItemSelected
     String[] paths = {"Music", "Pictures", "Download"}; // where we will store data
     File dirPath = null;
 
+    Button confirm, save;
+
+
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,6 +45,13 @@ public class ExternalData extends Activity implements AdapterView.OnItemSelected
 
         canRead = (TextView) findViewById(R.id.tvCanRead);
         canWrite = (TextView) findViewById(R.id.tvCanWrite);
+
+        confirm = (Button) findViewById(R.id.bConfirmFilePath);
+        save = (Button) findViewById(R.id.bSaveFile);
+
+        confirm.setOnClickListener(this);
+        save.setOnClickListener(this);
+
 
         //status tells us whether we can read or write to the sd card or not
         status = Environment.getExternalStorageState(); // returns a string of the current state
@@ -111,5 +123,22 @@ public class ExternalData extends Activity implements AdapterView.OnItemSelected
     @Override
     public void onNothingSelected(AdapterView<?> adapterView) {
 
+    }
+
+    @Override
+    public void onClick(View view) {
+
+        switch (view.getId()){
+
+            case R.id.bConfirmFilePath:
+
+                break;
+            //when the save button is clicked...
+            case R.id.bSaveFile:
+                //reveal save button
+                save.setVisibility(View.VISIBLE);
+
+                break;
+        }
     }
 }

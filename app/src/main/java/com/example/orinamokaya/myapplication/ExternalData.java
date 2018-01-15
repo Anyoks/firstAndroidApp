@@ -1,6 +1,8 @@
 package com.example.orinamokaya.myapplication;
 
+import android.annotation.TargetApi;
 import android.app.Activity;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.annotation.Nullable;
@@ -8,6 +10,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -33,13 +36,13 @@ public class ExternalData extends Activity implements AdapterView.OnItemSelected
     Spinner spinner;
     String[] paths = {"Music", "Pictures", "Download"}; // where we will store data
     File dirPath = null;
-
+    EditText saveAs;
     Button confirm, save;
 
 
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    protected void onCreate( @Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.externaldata);
 
@@ -90,6 +93,7 @@ public class ExternalData extends Activity implements AdapterView.OnItemSelected
 
     }
 
+    @TargetApi(Build.VERSION_CODES.FROYO)
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
@@ -128,15 +132,18 @@ public class ExternalData extends Activity implements AdapterView.OnItemSelected
     @Override
     public void onClick(View view) {
 
+        //when the confirm button is clicked...
         switch (view.getId()){
 
             case R.id.bConfirmFilePath:
 
+                //reveal save button
+                save.setVisibility(View.VISIBLE);
+
                 break;
             //when the save button is clicked...
             case R.id.bSaveFile:
-                //reveal save button
-                save.setVisibility(View.VISIBLE);
+
 
                 break;
         }

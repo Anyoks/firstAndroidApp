@@ -53,7 +53,7 @@ public class DeliciousOrNot {
             sqLiteDatabase.execSQL( "CREATE TABLE" + DATABASE_TABLE + " (" +
                    KEY_ROWID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + // COLUMN 1
                     KEY_NAME + " TEXT NOT NULL, " + // COLUMN 2
-                    KEY_Delicacy + " TEXT NOT NULL);" // COLUMN 3
+                    KEY_DELICACY + " TEXT NOT NULL);" // COLUMN 3
             );
         }
 

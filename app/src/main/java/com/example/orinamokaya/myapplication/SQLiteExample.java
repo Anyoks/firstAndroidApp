@@ -39,6 +39,21 @@ public class SQLiteExample extends Activity implements View.OnClickListener {
 
         switch (view.getId()){
             case R.id.bSQLUpdate:
+                //when this button is clicked both text will be grabbed, set to the name and
+                // delicious variables and sent over to the DeliciousOrNot class, database will be
+                // set up... et.t.c
+
+                // grab user data
+                String name = sqlFoodName.getText().toString();
+                String delicious = sqlDeliciousness.getText().toString();
+
+                // now lets access the data base using the class we created
+                DeliciousOrNot entry = new DeliciousOrNot(SQLiteExample.this);
+                entry.open(); //open
+
+                entry.createEntry( name, delicious);
+
+                entry.close();
 
                 break;
             case R.id.bSQLOpenView:

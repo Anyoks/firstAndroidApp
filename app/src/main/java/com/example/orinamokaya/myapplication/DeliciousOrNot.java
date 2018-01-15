@@ -32,6 +32,8 @@ public class DeliciousOrNot {
     private final Context ourContext; // context of the current class DeliciousOrNor
     private SQLiteDatabase  ourDatabase; //our SQL databse
 
+
+
     //this class will help build the database. we don't want to do this in the user interface thread.
     private static class DbHelper extends SQLiteOpenHelper{
 
@@ -81,5 +83,8 @@ public class DeliciousOrNot {
     //close the database... i.e close the DbHelper class
     public void close(){
         ourHelper.close();
+    }
+
+    public void createEntry(String name, String delicious) {
     }
 }

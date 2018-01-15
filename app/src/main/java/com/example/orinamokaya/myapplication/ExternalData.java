@@ -15,6 +15,11 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 
 /**
  * Created by orinamokaya on 1/8/18.
@@ -36,7 +41,8 @@ public class ExternalData extends Activity implements AdapterView.OnItemSelected
     Spinner spinner;
     String[] paths = {"Music", "Pictures", "Download"}; // where we will store data
     File dirPath = null;
-    EditText saveAs;
+    File file = null; // the file we will save
+    EditText saveAs; // user input of the name of the file that is to be saved
     Button confirm, save;
 
 
@@ -55,6 +61,21 @@ public class ExternalData extends Activity implements AdapterView.OnItemSelected
         confirm.setOnClickListener(this);
         save.setOnClickListener(this);
 
+        checkReadWriteStatus();
+
+        //the spinner accepts an array adapter in its params
+        // the array adapter data type depends on the data type you want. we are passing Strings so we use string
+        //fo the array adapter accepts the current class context and a spinner layout i.e simple spinner
+        //and the string array paths
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(ExternalData.this, android.R.layout.simple_spinner_item, paths);
+        spinner = (Spinner) findViewById(R.id.spinner);
+        spinner.setAdapter(adapter);
+        spinner.setOnItemSelectedListener(this);// when an item is selected do something
+
+
+    }
+
+    private void checkReadWriteStatus() {
 
         //status tells us whether we can read or write to the sd card or not
         status = Environment.getExternalStorageState(); // returns a string of the current state
@@ -80,17 +101,6 @@ public class ExternalData extends Activity implements AdapterView.OnItemSelected
 
             canR = canW = false;
         }
-
-        //the spinner accepts an array adapter in its params
-        // the array adapter data type depends on the data type you want. we are passing Strings so we use string
-        //fo the array adapter accepts the current class context and a spinner layout i.e simple spinner
-        //and the string array paths
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(ExternalData.this, android.R.layout.simple_spinner_item, paths);
-        spinner = (Spinner) findViewById(R.id.spinner);
-        spinner.setAdapter(adapter);
-        spinner.setOnItemSelectedListener(this);// when an item is selected do something
-
-
     }
 
     @TargetApi(Build.VERSION_CODES.FROYO)
@@ -106,12 +116,12 @@ public class ExternalData extends Activity implements AdapterView.OnItemSelected
                 //getExternalStoragePublicDirectory gets a location that can be accessed even without the app
                 //this path must co-respond with the first item in the string array paths
 
-                // returns Music file path
+                // returns Music folder path
                 dirPath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MUSIC);
                 break;
 
             case 1:
-                // returns pictures file path
+                // returns pictures folder path
                 dirPath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
 
                 break;
@@ -143,6 +153,34 @@ public class ExternalData extends Activity implements AdapterView.OnItemSelected
                 break;
             //when the save button is clicked...
             case R.id.bSaveFile:
+                String f = saveAs.getText().toString(); // this will be the preferred file name inputed by the user
+                //this will create a file
+                file = new File(dirPath,f); // dirPath is the folder to save the file and f is the name of the file
+
+                //check if we can read and write.
+                checkReadWriteStatus();
+                if (canR == canW == true){
+                    //now lets write
+
+                    try {
+
+                        // this will save a picture to the particular location selected and neamed by the user in the edit text,
+                        InputStream is =  getResources().openRawResource(R.drawable.brown_ball); //we'll use this particular picture as an example
+                        OutputStream os = new FileOutputStream(file);
+
+                        byte[] data = new byte[is.available()]; // size of the input stream
+                        is.read(data); // read the input stream or the source
+                        os.write(data); // write to the destination
+                        is.close();
+                        os.close();
+
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
+                }
 
 
                 break;

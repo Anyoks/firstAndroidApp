@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -57,6 +58,8 @@ public class ExternalData extends Activity implements AdapterView.OnItemSelected
 
         confirm = (Button) findViewById(R.id.bConfirmFilePath);
         save = (Button) findViewById(R.id.bSaveFile);
+
+        saveAs = (EditText) findViewById(R.id.etSaveAs);
 
         confirm.setOnClickListener(this);
         save.setOnClickListener(this);
@@ -153,19 +156,24 @@ public class ExternalData extends Activity implements AdapterView.OnItemSelected
                 break;
             //when the save button is clicked...
             case R.id.bSaveFile:
-                String f = saveAs.getText().toString(); // this will be the preferred file name inputed by the user
+                String f = saveAs.getText().toString() + ".png"; // this will be the preferred file name inputed by the user
                 //this will create a file
                 file = new File(dirPath,f); // dirPath is the folder to save the file and f is the name of the file
 
                 //check if we can read and write.
                 checkReadWriteStatus();
                 if (canR == canW == true){
-                    //now lets write
 
+                    //in case the path does not exist, create a folder there. if it does so nothing
+                    dirPath.mkdirs(); // will create a folder where the path is pointing if it does not exist
+
+
+                    //now lets write
                     try {
 
                         // this will save a picture to the particular location selected and neamed by the user in the edit text,
-                        InputStream is =  getResources().openRawResource(R.drawable.brown_ball); //we'll use this particular picture as an example
+//                        InputStream is =  getResources().openRawResource(R.raw.anydo_pop); //we'll use this particular sound as an example
+                        InputStream is =  getResources().openRawResource(+ R.drawable.brown_ball); //we'll use this particular sound as an example
                         OutputStream os = new FileOutputStream(file);
 
                         byte[] data = new byte[is.available()]; // size of the input stream
@@ -173,6 +181,9 @@ public class ExternalData extends Activity implements AdapterView.OnItemSelected
                         os.write(data); // write to the destination
                         is.close();
                         os.close();
+
+                        Toast t = Toast.makeText(ExternalData.this,"File has been saved", Toast.LENGTH_LONG); // create a toast message notifying the user
+                        t.show(); // show the toast message
 
                     } catch (FileNotFoundException e) {
                         e.printStackTrace();

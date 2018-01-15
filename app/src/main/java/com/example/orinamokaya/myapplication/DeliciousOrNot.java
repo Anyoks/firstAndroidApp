@@ -74,7 +74,12 @@ public class DeliciousOrNot {
     public DeliciousOrNot open(){
         //pass in the context of what is being passed into the DeliciousOrNot class
         ourHelper = new DbHelper(ourContext); // this will set up all database stuff because it calls the DbHelper class we just created. refere to the constructor DbHelper class
-        ourDatabase = ourHelper.getWritableDatabase(); // open the database
+        ourDatabase = ourHelper.getWritableDatabase(); // open the database and now you can write to it
         return this;
+    }
+
+    //close the database... i.e close the DbHelper class
+    public void close(){
+        ourHelper.close();
     }
 }

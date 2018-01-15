@@ -2,6 +2,8 @@ package com.example.orinamokaya.myapplication;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.media.MediaScannerConnection;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
@@ -156,9 +158,9 @@ public class ExternalData extends Activity implements AdapterView.OnItemSelected
                 break;
             //when the save button is clicked...
             case R.id.bSaveFile:
-                String f = saveAs.getText().toString() + ".png"; // this will be the preferred file name inputed by the user
+                String f = saveAs.getText().toString(); // this will be the preferred file name inputed by the user
                 //this will create a file
-                file = new File(dirPath,f); // dirPath is the folder to save the file and f is the name of the file
+                file = new File(dirPath,f + ".png"); // dirPath is the folder to save the file and f is the name of the file
 
                 //check if we can read and write.
                 checkReadWriteStatus();
@@ -184,6 +186,19 @@ public class ExternalData extends Activity implements AdapterView.OnItemSelected
 
                         Toast t = Toast.makeText(ExternalData.this,"File has been saved", Toast.LENGTH_LONG); // create a toast message notifying the user
                         t.show(); // show the toast message
+
+                        //Make the saved file immediately accessible to the user. by refreshing or updating. we do that throught he media scanner
+                        //UPdate files for user to access.
+                        MediaScannerConnection.scanFile(ExternalData.this, //param 1 context
+                                new String[]{file.toString()}, // path to file as string array
+                                null, // 3 null
+                                new MediaScannerConnection.OnScanCompletedListener() { // last argument sacan completed listener
+                                    @Override
+                                    public void onScanCompleted(String s, Uri uri) {
+                                        Toast tf = Toast.makeText(ExternalData.this,"Scan completed",Toast.LENGTH_SHORT);
+                                        tf.show();
+                                    }
+                                });
 
                     } catch (FileNotFoundException e) {
                         e.printStackTrace();

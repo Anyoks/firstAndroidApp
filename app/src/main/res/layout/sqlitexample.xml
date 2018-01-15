@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Enter Name of food" />
+
+    <EditText
+        android:id="@+id/etSQLName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text=""
+        android:hint="e.g Chapati"/>
+
+    <TextView
+        android:id="@+id/textView7"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Delicious Scale 1 to 10" />
+
+    <EditText
+        android:id="@+id/etSQLDeliciousness"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text=""
+        android:hint="10 very Delicious, 1 terrible"/>
+
+    <Button
+        android:id="@+id/bSQLUpdate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Update SQLITE Database" />
+
+    <Button
+        android:id="@+id/bSQLOpenView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="View data" />
+</LinearLayout>

@@ -1,5 +1,6 @@
 package com.example.orinamokaya.myapplication;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -19,7 +20,7 @@ public class DeliciousOrNot {
 
     public static final String KEY_ROWID = "_id"; // this will hold the row id of data entered into the database
     public static final String KEY_NAME = "food_name"; // this will hold the name of data entered into the database
-    public static final String KEY_Delicacy = "food_delicacy"; // this will hold the delicacy of the food entered into the database
+    public static final String KEY_DELICACY = "food_delicacy"; // this will hold the delicacy of the food entered into the database
 
 
     // Setting up the database
@@ -85,6 +86,13 @@ public class DeliciousOrNot {
         ourHelper.close();
     }
 
-    public void createEntry(String name, String delicious) {
+    //This method will be used to enterdata into the database
+    public long createEntry(String name, String delicious) {
+        // data is inserted into the database through ContentValues
+        ContentValues cv = new ContentValues(); // will be used to insert data into to the database
+        // add information into the contentValue
+        cv.put(KEY_NAME,name);  // KEY is the column name [food_name] and value is the data to be put into that column [name]
+        cv.put(KEY_DELICACY, delicious); // KEY is the column name [food_delicacy] and value is the data to be put into that column [delicious]
+        return ourDatabase.insert(DATABASE_TABLE,null,cv); // insert into the database that we created in the DeliciousOrNot open method
     }
 }

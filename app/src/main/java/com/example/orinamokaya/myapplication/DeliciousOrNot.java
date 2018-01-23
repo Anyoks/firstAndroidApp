@@ -2,6 +2,7 @@ package com.example.orinamokaya.myapplication;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
@@ -50,7 +51,7 @@ public class DeliciousOrNot {
         public void onCreate(SQLiteDatabase sqLiteDatabase) {
 
             //execute SQL code to set up the database
-            sqLiteDatabase.execSQL( "CREATE TABLE" + DATABASE_TABLE + " (" +
+            sqLiteDatabase.execSQL( "CREATE TABLE " + DATABASE_TABLE + " (" +
                    KEY_ROWID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + // COLUMN 1
                     KEY_NAME + " TEXT NOT NULL, " + // COLUMN 2
                     KEY_DELICACY + " TEXT NOT NULL);" // COLUMN 3
@@ -74,7 +75,7 @@ public class DeliciousOrNot {
     }
 
     //method that we'll use publicly to open the datbase from another class
-    public DeliciousOrNot open(){
+    public DeliciousOrNot open() throws SQLException{ // because we are catching an exception in the update button, so that didItWoek  can be set to false and do nothing
         //pass in the context of what is being passed into the DeliciousOrNot class
         ourHelper = new DbHelper(ourContext); // this will set up all database stuff because it calls the DbHelper class we just created. refere to the constructor DbHelper class
         ourDatabase = ourHelper.getWritableDatabase(); // open the database and now you can write to it
@@ -86,7 +87,7 @@ public class DeliciousOrNot {
         ourHelper.close();
     }
 
-    //This method will be used to enterdata into the database
+    //This method will be used to enter data into the database
     public long createEntry(String name, String delicious) {
         // data is inserted into the database through ContentValues
         ContentValues cv = new ContentValues(); // will be used to insert data into to the database

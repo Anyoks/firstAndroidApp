@@ -23,8 +23,9 @@ public class SQLView extends Activity {
         // we want to get data from the Db so we set up a HotOrNot var and use it to retrieve data
         DeliciousOrNot info = new DeliciousOrNot(this);
         info.open(); // open the database
-        info.getData(); // this method is to retrieve data from the database
+        String data = info.getData(); // this method is to retrieve data from the database
         info.close(); // close dB
+        tv.setText(data);
 
     }
 }

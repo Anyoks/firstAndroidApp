@@ -97,6 +97,7 @@ public class DeliciousOrNot {
         return ourDatabase.insert(DATABASE_TABLE,null,cv); // insert into the database that we created in the DeliciousOrNot open method
     }
 
-    public void getData() {
+    public String getData() {
+        return null;
     }
 }

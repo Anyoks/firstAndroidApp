@@ -2,6 +2,7 @@ package com.example.orinamokaya.myapplication;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
@@ -63,11 +64,22 @@ public class SQLiteExample extends Activity implements View.OnClickListener {
                 } catch (Exception e) {
                     //e.printStackTrace();
                     didItWork = false;
+                    // get the error as a string
+                    String error = e.toString();
+                    //set up a dialog
+                    Dialog d = new Dialog(this);
+                    d.setTitle("Database Error");
+                    //set a text view for the dialog
+                    TextView tv = new TextView(this);
+                    tv.setText(error); // print the error so we can get the information
+                    d.setContentView(tv); // set the text body of the dialog
+                    d.show(); // show the dialog
+
                 } finally {
                     if (didItWork){
                         //set up a dialog
                         Dialog d = new Dialog(this);
-                        d.setTitle("Database Access");
+                        d.setTitle("Database Success");
                         //set a text view for the dialog
                         TextView tv = new TextView(this);
                         tv.setText("Database insert Successful!");
@@ -79,6 +91,11 @@ public class SQLiteExample extends Activity implements View.OnClickListener {
 
                 break;
             case R.id.bSQLOpenView:
+
+                //
+                //start another activity
+                Intent i = new Intent("com.example.orinamokaya.SQLVIEW"); // this will open the SQLView class
+                startActivity(i);
 
                 break;
         }

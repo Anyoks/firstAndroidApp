@@ -96,4 +96,7 @@ public class DeliciousOrNot {
         cv.put(KEY_DELICACY, delicious); // KEY is the column name [food_delicacy] and value is the data to be put into that column [delicious]
         return ourDatabase.insert(DATABASE_TABLE,null,cv); // insert into the database that we created in the DeliciousOrNot open method
     }
+
+    public void getData() {
+    }
 }

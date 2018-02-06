@@ -2,6 +2,7 @@ package com.example.orinamokaya.myapplication;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -98,6 +99,20 @@ public class DeliciousOrNot {
     }
 
     public String getData() {
-        return null;
+        String[] columns = new String[]{ KEY_ROWID, KEY_NAME, KEY_DELICACY}; //
+        Cursor c = ourDatabase.query(DATABASE_TABLE,columns,null,null,null,null,null); //this is the way the database is iterated
+        String restult =""; // this will hold the result, it's a row
+
+//      gets the row id for that coloumns to loop through the data as we collect
+        int iRow = c.getColumnIndex(KEY_ROWID);
+        int iName = c.getColumnIndex(KEY_NAME);
+        int iDelicacy = c.getColumnIndex(KEY_DELICACY);
+
+        for (c.moveToFirst(); !c.isAfterLast(); c.moveToNext()){
+            // get the data from each row, the id, name and delicacy and  add in result stringg
+             restult = restult + c.getString(iRow) + " " + c.getString(iName) + " " + c.getString(iDelicacy) + "\n" ;
+        }
+
+        return restult;
     }
 }
